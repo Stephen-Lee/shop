@@ -22,8 +22,10 @@ class AwardsController < ApplicationController
   private
   def check_user_score
     if current_user.score < 100
-      flash[:notice] = "抱歉，你的积分不足100，不能参与抽奖"
-      redirect_to awards_path
+      @error = true
+      respond_to do |format|
+         format.js
+      end
     end
   end
 end
