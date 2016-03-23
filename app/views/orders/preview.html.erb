@@ -1,0 +1,73 @@
+<div class="col-md-10 col-md-offset-1">
+    <h2>确认订单信息</h2>
+    <hr>
+  
+    <div class="col-md-5">
+        <strong>商品信息</strong>
+    </div>
+    <div class="col-md-2">
+        <strong>单价(元)</strong>
+    </div>
+    <div class="col-md-1">
+        <strong>数量</strong>
+    </div>
+    <div class="col-md-1">合计</div>
+
+    <br>
+    <%= simple_form_for @order do |f|%>
+        <%= f.simple_fields_for :items do |i| %>
+            <%= i.input :product_id,as: :hidden%>
+                <%= i.input :quantity,as: :hidden%>
+                <%= i.input :product_type,as: :hidden%>
+                    <%end%>
+                        <% @order.items.each do |item|%>
+                            <div class="panel panel-info">
+                                <div class="panel-heading"></div>
+                                <div class="panel-body">
+                                    <div class="col-md-2">
+                                        <%=link_to image_tag(item.product.picture,size:"80x80"),product_path(item.product)%>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div>
+                                            <%=link_to item.product.name, product_path(item.product)%>
+                                        </div>
+                                        <% if item.product_type %>
+                                            <div>
+                                                <small class="explanation">颜色／分类：<strong><%= item.product_type%></strong></small>
+                                            </div>
+                                            <%end%>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="price"><%= item.product.price%></div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <div class="quantity"><%= item.quantity%></div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <div class="total"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <%end%>
+                                <!--@items-->
+                               
+                                <div class="pull-right">
+                                    <input type="checkbox" id="code_trigger"/>使用优惠劵
+                                    <div id="verify_code">
+                                    <%= f.input :verify_code,placeholder: "输入优惠卷号",label: false%>
+                                    </div>
+                                    <h4>总计:  <div class="red_color inline" id="order_total"></div>元(未包含优惠)</h4>
+                                </div>
+</div>
+<div class="col-md-6 col-md-offset-1">
+   <div class="normal_border">
+    <h2>确认收货地址</h2>
+    <hr>
+    <%= f.input :buyer,label: "收货人姓名：",input_html: { value: current_user.real_name }%>
+        <%= f.input :phone,label: "手机号码：",input_html: { value: current_user.phone }%>
+            <%= f.input :address,label: "收货地址：",input_html: { value: "#{current_user.s_province}-#{current_user.s_city}-#{current_user.s_county}-#{current_user.address}" }%>
+                <%= f.submit '提交订单', class: "btn btn-lg btn-success"%>
+                    <%end%>
+    </div>                 
+</div>
+

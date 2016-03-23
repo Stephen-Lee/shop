@@ -1,0 +1,9 @@
+<div class="col-md-8 col-md-offset-2">
+    <%= link_to '返回商品页面', product_path(@product), class: "btn btn-secondary"%>
+        <div id="comment_lists">
+            <%= render @comments %>
+        </div>
+        <%= will_paginate @comments%>
+            <hr>
+            <%= render 'form'%>
+</div>

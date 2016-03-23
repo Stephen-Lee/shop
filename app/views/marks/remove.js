@@ -1,0 +1,1 @@
+$('#marks_list').html("<%= j(render('marks/marks_list'))%>")

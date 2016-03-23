@@ -1,0 +1,3 @@
+<%= form_for(current_user.marks.find_by_product_id(@product),method: :delete, remote: true) do |f|%>
+    <%= f.submit '取消收藏',class: "btn btn-sm btn-info pull-right"%>
+        <%end%>

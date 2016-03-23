@@ -1,0 +1,4 @@
+<%= form_for(current_user.marks.build(product_id: @product.id),remote: true) do |f|%>
+    <%= f.hidden_field :product_id%>
+        <%= f.submit '收藏商品',class: "btn btn-sm btn-success pull-right" %>
+            <%end%>

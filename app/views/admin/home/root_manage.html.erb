@@ -1,0 +1,32 @@
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          通栏管理
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body collapse_style">
+         
+         <div class="banners">
+         <%= render @banners%>
+         </div>
+
+	    <div class="normal_border">
+	      <%= simple_form_for [:admin,@banner],remote: true do |f|%>
+	       <%= f.input :picture,label: "上传图片"%>
+	       <%= f.input :url%>
+	       <%= f.submit "确定",class: "btn btn-secondary"%>
+	    <%end%>
+	 
+	    </div>
+
+      </div>
+    </div>
+  </div>
+  
+  
+</div>

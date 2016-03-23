@@ -1,0 +1,14 @@
+<h1 align="center">我的优惠卷</h1>
+<div class="col-md-8 col-md-offset-2">
+    <% @coupons.each do |cp|%>
+        <div class="normal_border">
+            <div>
+                <%= format_time(cp.created_at)%>
+            </div>
+            <hr>
+            <div class="col-md-4">验证码：<b><%= cp.verify_code%></b></div>
+            <div class="col-md-4">面值：<b><%= cp.value%></b>元</div>
+            <div class="col-md-4">有效期至： <b><%= format_time(cp.expire_at)%></b></div>
+        </div>
+        <%end%>
+</div>

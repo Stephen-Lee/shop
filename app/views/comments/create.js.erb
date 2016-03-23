@@ -1,0 +1,4 @@
+$("#comments_count").html("评价(<%= @product.comments.count %>)")
+$("#comment_lists").prepend("<%= j(render(@comment)) %>")
+$("#all_comments").html('<%= link_to "查看全部#{@product.comments.count}条评论", all_comment_path(@product)%>')
+$("#notice").html("您的评价已提交成功！")

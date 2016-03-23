@@ -1,0 +1,9 @@
+<div class="comment_container">
+<div id="comment_lists">
+    <%= render @comments%>
+</div>
+</div>
+<strong><div id="all_comments" class="pull-right"><%= link_to "查看全部#{@product.comments.count}条评论", all_comment_path(@product)%></div></strong>
+<hr>
+<!--评论表单-->
+<%= render 'comments/form'%>

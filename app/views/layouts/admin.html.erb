@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Shop</title>
+   <!-- <script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js"></script> -->
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+        <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+            <%= csrf_meta_tags %>
+                <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css">
+</head>
+
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <%= render 'layouts/header'%>
+        </div>
+        <div id="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <p class="notice">
+                        <%= notice %>
+                    </p>
+                    <p class="alert">
+                        <%= alert %>
+                    </p>
+                    <div class="col-md-3 sidebar">
+                        <ul class="nav nav-sidebar">
+                            <li class="active">
+                                <%= link_to '<i class="fa fa-home"></i> 后台主页'.html_safe, admin_root_path,data: { no_turbolink: true }%></li>
+                            <li>
+                                <%= link_to '<i class="fa fa-cog"></i> 首页管理'.html_safe, admin_root_manage_path%>
+                            </li>    
+                            <li>
+                                <%= link_to '<i class="fa fa-cog"></i> 商品管理'.html_safe, admin_products_path%></li>
+                            <li>
+                                <%= link_to '<i class="fa fa-cog"></i> 商品分类管理'.html_safe, admin_categories_path%></li>
+                            <li>
+                                <%= link_to '<i class="fa fa-cog"></i> 用户管理'.html_safe, admin_users_path%></li>
+                        </ul>
+                        <ul class="nav nav-sidebar">
+                            <li>
+                                <%= link_to '<i class="fa fa-cog"></i> 订单管理'.html_safe, admin_orders_path%></li>
+                            <li>
+                                <%= link_to '<i class="fa fa-cog"></i> 优惠卷管理'.html_safe, admin_coupons_path%></li>
+                            <li>
+                                <%= link_to '<i class="fa fa-cog"></i> 抽奖管理'.html_safe, admin_awards_path%></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-9">
+                        <%= yield %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--content-->
+        <div id="footer">
+            <%= render 'layouts/footer'%>
+        </div>
+    </div>
+</body>
+
+</html>

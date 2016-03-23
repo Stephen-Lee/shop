@@ -1,0 +1,64 @@
+<div class="col-md-8 col-md-offset-2">
+    <%if @items.blank?%>
+        <h3 class="notify">您的购物车空空如也～</h3>
+        <%else%>
+            <h2 class="inline">购物车共有<%=@items.count%>件商品</h2>
+            <%= link_to '清空购物车', cart_path(current_user.cart), method: :delete,class: "btn btn-info pull-right",data: {confirm: "确定要清空购物车内#{@items.count}件商品?"}%>
+                <hr>
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-4">
+                    <strong>商品信息</strong>
+                </div>
+                <div class="col-md-2">
+                    <strong>单价(元)</strong>
+                </div>
+                <div class="col-md-2">
+                    <strong>数量</strong>
+                </div>
+                <div class="col-md-2">
+                    <strong>操作</strong>
+                </div>
+                <br>
+                <%= form_tag preview_order_path do %>
+                    <% @items.each do |item|%>
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                创建时间：
+                                <%= format_time(item.created_at)%>
+                            </div>
+                            <div class="panel-body">
+                                <div class="col-md-1">
+                                    <%= check_box_tag 'items[][product_id]', item.product_id%>
+                                </div>
+                                <div class="col-md-2">
+                                    <%=link_to image_tag(item.product.picture,size:"80x80"),product_path(item.product)%>
+                                </div>
+                                <div class="col-md-2">
+                                    <%=link_to item.product.name, product_path(item.product)%>
+                                    <% if item.product_type %>
+                                            <div>
+                                                <small class="explanation">颜色／分类：<strong><%= item.product_type%></strong></small>
+                                            </div>
+                                             <%= hidden_field_tag 'items[][product_type]',item.product_type %>
+                                            <%end%>
+                                </div>
+                                <div class="col-md-2">
+                                    <%= item.product.price%>
+                                </div>
+                                <div class="col-md-2">
+                                    <%= text_field_tag 'items[][quantity]', item.quantity,size: "1x1"%>
+                                </div>
+                                <div class="col-md-2">
+                                 
+                                        <%= link_to '删除', item_path(item),method: :delete%>
+                                </div>
+                            </div>
+                        </div>
+                        <%end%>
+                            <%= submit_tag '结算',class: "pull-right btn btn-lg btn-secondary"%>
+                                <%end%>
+                                    <!--form_tag-->
+                                    <%= will_paginate @items%>
+                                        <%end%>
+</div>

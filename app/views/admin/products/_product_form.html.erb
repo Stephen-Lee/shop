@@ -1,0 +1,10 @@
+<%= simple_form_for [:admin,@product] do |f|%>
+	<%= f.input :name, label: "商品名"%>
+	<%= f.input :price, label: "零售价"%>
+	<%= f.input :inventory, label: "库存"%>
+	<%= f.association :category, collection: @selectable_categories, label: "商品分类"%>
+	<%= f.input :type_list,input_html: {multiple: 'multiple'},label: "商品规格／大小／类型(空格键分隔)"%>
+	<%= f.input :picture, label: "展示图"%>
+	<%= f.input :introduction, label: "商品描述"%>
+	<%= f.submit "确认", class: "btn-lg btn-success"%>
+<%end%>

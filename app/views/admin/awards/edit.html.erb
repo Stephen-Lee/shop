@@ -1,0 +1,9 @@
+<%= simple_form_for [:admin,@award] do |f|%>
+    <%= f.input :name,label: "奖品名"%>
+    <%= f.input :quantity,label: "数量"%>
+    <div class="form-inline">
+    <%= f.input :expire_at,label: "有效期至",class: "form-control"%>
+    </div>
+    <%= f.input :odds,label: "中奖率(基数：万)"%>
+    <%= f.submit 'submit',class: "btn btn-primary btn-lg"%>
+<%end%>

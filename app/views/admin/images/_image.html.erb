@@ -1,0 +1,4 @@
+<div class="preview_image_container image_<%= image.id%>">
+<%= image_tag image.url%>
+<div><%= link_to "删除",del_image_admin_images_path(image_id: image.id),method: :delete,remote: true%></div>
+</div>

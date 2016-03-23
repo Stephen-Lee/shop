@@ -1,0 +1,43 @@
+<div class="col-md-10 col-md-offset-1">
+    <div class="panel panel-info">
+        <div class="panel-heading"> 商品表
+            <%= link_to "新建商品", new_admin_product_path,class: "pull-right btn btn-sm btn-success"%>
+        </div>
+        <div class="panel-body">
+            <table class="datatable table table-hover">
+                <thead class="table-info">
+                    <tr>
+                        <th><b>id</b></th>
+                        <th><b>商品名</b></th>
+                        <th><b>零售价</b></th>
+                        <th><b>库存</b></th>
+                        <th><b>操作</b></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @products.each do |product|%>
+                        <tr>
+                            <td>
+                                <%= link_to product.id, edit_admin_product_path(product), 'data-no-turbolink' => true%>
+                            </td>
+                            <td>
+                                <%= link_to product.name, edit_admin_product_path(product),'data-no-turbolink' => true%>
+                            </td>
+                            <td>
+                                <%= product.price%>
+                            </td>
+                            <td>
+                                <%= product.inventory%>
+                            </td>
+                            <td>
+                                <%= link_to '删除', admin_product_path(product), method: :delete%>
+                            </td>
+                        </tr>
+                        <%end%>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+

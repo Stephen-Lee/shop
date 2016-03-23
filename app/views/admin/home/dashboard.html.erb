@@ -1,0 +1,242 @@
+<h4><i class="fa fa-tachometer"></i> 统计时间：<%= @time%></h4>
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-bar-chart"></i> 用户分布</h3>
+    </div>
+    <div class="panel-body">
+        <div id="chart1div" style="width: 100%; height: 400px;"></div>
+    </div>
+</div>
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-pie-chart"></i> 性别统计</h3>
+    </div>
+    <div class="panel-body">
+        <div id="chart3div" style="width: 100%; height: 400px;"></div>
+    </div>
+</div>
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-area-chart"></i> 年龄统计</h3>
+    </div>
+    <div class="panel-body">
+        <p>平均年龄：
+            <%= @average_age%>岁</p>
+        <div id="chart4div" style="width: 100%; height: 400px;"></div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+
+ <!-- 用户分布-->
+var chart;
+var chartData = [{
+        "country": "<%= @top_provinces[0].s_province if @top_provinces[0]%>",
+        "visits": "<%= @provinces_user_count[0] || 0%>",
+        "color": "#FF0F00"
+    }, {
+        "country": "<%= @top_provinces[1].s_province if @top_provinces[1]%>",
+        "visits": "<%= @provinces_user_count[1] || 0%>",
+        "color": "#FF6600"
+    }, {
+        "country": "<%= @top_provinces[2].s_province if @top_provinces[2]%>",
+        "visits": "<%= @provinces_user_count[2] || 0%>",
+        "color": "#FF9E01"
+    }, {
+        "country": "<%= @top_provinces[3].s_province if @top_provinces[3]%>",
+        "visits": "<%= @provinces_user_count[3] || 0%>",
+        "color": "#FCD202"
+    }, {
+        "country": "<%= @top_provinces[4].s_province if @top_provinces[4]%>",
+        "visits": "<%= @provinces_user_count[4] || 0%>",
+        "color": "#F8FF01"
+    }, {
+        "country": "<%= @top_provinces[5].s_province if @top_provinces[5]%>",
+        "visits": "<%= @provinces_user_count[5] || 0%>",
+        "color": "B0DE09"
+    }, {
+        "country": "<%= @top_provinces[6].s_province if @top_provinces[6]%>",
+        "visits": "<%= @provinces_user_count[6] || 0%>",
+        "color": "#04D215"
+    }, {
+        "country": "<%= @top_provinces[7].s_province if @top_provinces[7]%>",
+        "visits": "<%= @provinces_user_count[7] || 0%>",
+        "color": "#0D8ECF"
+    }, {
+        "country": "<%= @top_provinces[8].s_province if @top_provinces[8]%>",
+        "visits": "<%= @provinces_user_count[8] || 0%>",
+        "color": "#0D52D1"
+    }, {
+        "country": "<%= @top_provinces[9].s_province if @top_provinces[9]%>",
+        "visits": "<%= @provinces_user_count[9] || 0%>",
+        "color": "#2A0CD0"
+    }
+
+];
+
+
+var chart = AmCharts.makeChart("chart1div", {
+    type: "serial",
+    dataProvider: chartData,
+    categoryField: "country",
+    depth3D: 20,
+    angle: 30,
+
+    categoryAxis: {
+        labelRotation: 90,
+        gridPosition: "start"
+    },
+
+    valueAxes: [{
+        title: "用户分布"
+    }],
+
+    graphs: [{
+
+        valueField: "visits",
+        colorField: "color",
+        type: "column",
+        lineAlpha: 0,
+        fillAlphas: 1
+    }],
+
+    chartCursor: {
+        cursorAlpha: 0,
+        zoomable: false,
+        categoryBalloonEnabled: false
+    },
+
+    exportConfig: {
+        menuTop: "21px",
+        menuBottom: "auto",
+        menuRight: "21px",
+        backgroundColor: "#efefef",
+
+        menuItemStyle: {
+            backgroundColor: '#EFEFEF',
+            rollOverBackgroundColor: '#DDDDDD'
+        },
+
+        menuItems: [{
+            textAlign: 'center',
+            icon: '../amcharts/images/export.png',
+            onclick: function() {},
+            items: [{
+                title: 'JPG',
+                format: 'jpg'
+            }, {
+                title: 'PNG',
+                format: 'png'
+            }, {
+                title: 'SVG',
+                format: 'svg'
+            }, {
+                title: 'PDF',
+                format: 'pdf'
+            }]
+        }]
+    }
+});
+
+ 
+})
+
+
+
+$(document).ready(function() {
+
+<!--性别统计-->
+var chart;
+var legend;
+
+var chartData = [{
+    "sex": "男",
+    "value": "<%= @male_count%>"
+}, {
+    "sex": "女",
+    "value": "<%= @female_count%>",
+
+}];
+
+AmCharts.ready(function() {
+    // PIE CHART
+    chart = new AmCharts.AmPieChart();
+    chart.dataProvider = chartData;
+    chart.titleField = "sex";
+    chart.valueField = "value";
+    chart.outlineColor = "#FFFFFF";
+    chart.outlineAlpha = 0.8;
+    chart.outlineThickness = 2;
+    chart.balloonText = "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>";
+    // this makes the chart 3D
+    chart.depth3D = 15;
+    chart.angle = 30;
+
+    // WRITE
+    chart.write("chart3div");
+});
+
+})
+
+
+
+$(document).ready(function() {
+
+var chart = AmCharts.makeChart("chart4div", {
+    "type": "serial",
+    "pathToImages": "../amcharts/images/",
+    "dataProvider": [{
+        "age": "15-20岁",
+        "value": "<%= @age_15_20%>"
+    }, {
+        "age": "21-25岁",
+        "value": "<%= @age_21_25%>"
+    }, {
+        "age": "26-30岁",
+        "value": "<%= @age_26_30%>"
+    }, {
+        "age": "31-35岁",
+        "value": "<%= @age_31_35%>"
+    }, {
+        "age": "36-40岁",
+        "value": "<%= @age_36_40%>"
+    }, {
+        "age": "40岁以上",
+        "value": "<%= @age_old%>"
+    }],
+    "valueAxes": [{
+        "axisAlpha": 0,
+        "guides": [{
+            "fillAlpha": 0.1,
+            "fillColor": "#CC0000",
+            "lineAlpha": 0,
+            "toValue": 120,
+            "value": 0
+        }, {
+            "fillAlpha": 0.1,
+            "fillColor": "#0000cc",
+            "lineAlpha": 0,
+            "toValue": 200,
+            "value": 120
+        }]
+    }],
+    "graphs": [{
+        "bullet": "round",
+        "dashLength": 4,
+        "valueField": "value"
+    }],
+    "chartCursor": {
+        "cursorAlpha": 0
+    },
+    "categoryField": "age",
+
+});
+
+})
+
+</script>

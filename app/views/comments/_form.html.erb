@@ -1,0 +1,14 @@
+<% if user_signed_in?%>
+    <div>
+        <div id="notice"></div>
+        <%= simple_form_for [@product,Comment.new],remote: true do |f|%>
+        <%= f.input :user_id, as: :hidden, input_html: {value: current_user.id}%>
+        <%= f.input :content,label: "发表评价" %>
+        <%= f.submit '提交', class: "btn btn-lg btn-primary sub_btn"%>
+        <%end%>
+    </div>
+    <%else%>
+        <div class="normal_border">
+            <h3 align="center" class="red_color">登录后才能评论!  <%=link_to '登录', user_session_path%> | <%= link_to '注册', new_user_registration_path%></h3>
+        </div>
+        <%end%>

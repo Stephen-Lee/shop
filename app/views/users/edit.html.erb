@@ -1,0 +1,36 @@
+<div class="col-md-6 col-md-offset-4">
+    <div class="normal_border">
+        <h3>个人资料</h3>
+        <div>昵称：<strong><%= current_user.nick_name%></strong></div>
+        <div>email：<strong><%= current_user.email%></strong></div>
+        <div class="avatar pull-right">
+            <%= image_tag(current_user.check_avatar,size:"70x70") %>
+        </div>
+        <br>
+        <%= simple_form_for current_user do |f|%>
+            <%= f.input :avatar, label: "更换头像"%>
+                <div><strong>性别</strong></div>
+                <%= f.collection_radio_buttons :sex, [["male", '男'] ,["female", '女']], :first, :last%>
+                    <br>
+                    <%= f.input :age, label: "年龄"%>
+                        <%= f.submit '更改', class: "btn btn-info"%>
+                            <%end%>
+                                <br>
+                                <h3>管理收货信息</h3>
+                                <hr>
+                                <%= simple_form_for current_user do |f|%>
+                                    <%= f.input :real_name,label: "收货人姓名"%>
+                                        <%= f.input :phone,label: "联系电话号码"%>
+                                            <%= f.input :address,label: "收货地址(街道)"%>
+                                                <div class="info">
+                                                    <div>
+                                                        <%= f.input :s_province, as: :select, input_html: {id: "s_province"},label: "省份"%>
+                                                            <%= f.input :s_city, as: :select, input_html: {id: "s_city"},label: "城市"%>
+                                                                <%= f.input :s_county, as: :select, input_html: {id: "s_county"},label: "属区"%>
+                                                    </div>
+                                                    <div id="show"></div>
+                                                </div>
+                                                <%= f.submit '修改', class: "btn btn-lg btn-primary"%>
+                                                    <%end%>
+    </div>
+</div>

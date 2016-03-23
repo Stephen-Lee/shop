@@ -1,0 +1,20 @@
+
+<div class="left-pro">
+		<div class="t1">
+			<!--<img src="images/gotop.gif" id="gotop" />-->
+			<div id="showArea">
+				<a href="<%= @product.picture%>" rel="zoom1" rev="<%= @product.picture%>"><img src="<%= @product.picture%>" /></a>
+				<% @product.preview_images.each do |i|%>
+				<a href="<%= i.url%>" rel="zoom1" rev="<%= i.url%>"><img src="<%= i.url%>" /></a>
+				
+				<%end%>
+			</div>
+			<!--<img src="images/gobottom.gif" id="gobottom"  />-->
+		</div>
+		<div class="t2">
+		<a href="<%= @product.picture%>" id="zoom1" class="MagicZoom MagicThumb"><img src="<%= @product.picture%>" id="main_img" class="main_img" /></a>
+		</div>
+</div>
+
+<div style="clear:both;"></div>
+

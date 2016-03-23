@@ -1,0 +1,47 @@
+<div>收货地址：
+    <%= @order.address%>
+</div>
+<div>联系电话：
+    <%= @order.phone%>
+</div>
+<div>收货人姓名：
+    <%= @order.buyer%>
+</div>
+<div class="row">
+	<div class="col-md-7">
+    <div class="col-md-3"> 
+        商品信息
+    </div>
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-3">
+        单价
+    </div>
+    <div class="col-md-3">
+        数量
+    </div>
+</div>
+</div>
+<% @order.items.each do |i|%>
+    <div class="panel panel-info">
+        <div class="panel-heading"></div>
+        <div class="panel-body">
+            <div class="col-md-7">
+                <div class="row">
+                    <div class="col-md-3">
+                        <%= link_to image_tag(i.product.picture, size: "50x50"), product_path(i.product)%>
+                    </div>
+                    <div class="col-md-3">
+                        <%=link_to i.product.name, product_path(i.product)%>
+                    </div>
+                    <div class="col-md-3">
+                        <%= i.product.price%>
+                    </div>
+                    <div class="col-md-3">
+                        <%= i.quantity%>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%end%>

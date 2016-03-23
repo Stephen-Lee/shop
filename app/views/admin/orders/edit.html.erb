@@ -1,0 +1,7 @@
+<h1>修改订单信息</h1>
+	<%= simple_form_for [:admin, @order] do |f|%>
+	<%= f.input :buyer%>
+	<%= f.input :phone%>
+	<%= f.input :address%>
+	<%= f.submit '提交', class: "btn btn-lg btn-info"%>
+<%end%>

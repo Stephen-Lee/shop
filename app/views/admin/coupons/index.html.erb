@@ -1,0 +1,35 @@
+<div class="panel panel-warning">
+    <div class="panel-heading">
+        <h3 class="panel-title">优惠劵管理</h3>
+    </div>
+    <div class="panel-body">
+        <div class="form-inline">
+            <%= form_tag admin_coupons_path do %>
+       张数：<%= text_field_tag :quantity,params[:quantity],
+  class: "form-control"%>
+	    面值: <%= text_field_tag :value,params[:value],class: "form-control"%>
+	         <%= submit_tag "生成",class: "btn btn-default"%>
+	         <%end%>
+        </div>
+        <table class="table table-hover">
+            <tr>
+                <td>验证码</td>
+                <td>面值</td>
+                <td>有效期至</td>
+            </tr>
+            <% @coupons.each do |cp|%>
+                <tr>
+                    <td>
+                        <%= cp.verify_code%>
+                    </td>
+                    <td>
+                        <%= cp.value%>
+                    </td>
+                    <td>
+                        <%= format_time(cp.expire_at)%>
+                    </td>
+                </tr>
+                <%end%>
+        </table>
+    </div>
+</div>

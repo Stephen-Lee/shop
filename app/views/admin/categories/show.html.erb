@@ -1,0 +1,18 @@
+<div class="col-md-8 col-md-offset-2">
+    <%= link_to "返回主分类", admin_categories_path, class: "btn btn-lg btn-primary "%>
+        <div class="normal_border">
+            <div class="row">
+                <h1><%= @category.name%></h1>
+                <%= link_to "删除分类", admin_category_path(@category), method: :delete, data: {confirm: "注意：删除会连带子分类也全部删除，你确定要删除吗？"}, class: "pull-right btn btn-lg btn-primary"%>
+            </div>
+            <hr>
+            <% @category.children.each do |c|%>
+                <h3><%= link_to c.name, admin_category_path(c)%></h3>
+                <%end%>
+                    <%= simple_form_for Category.new, url: {action: "create"} do |f|%>
+                    <%= f.input :name%>
+                    <%= f.input :ancestry, as: :hidden, input_html: {value: @category.id}%>
+                    <%= f.submit "添加子分类"%>
+                    <%end%>
+        </div>
+</div>

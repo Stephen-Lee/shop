@@ -1,0 +1,23 @@
+<% if @mark_products.any? %>
+
+<div class="col-md-10 col-md-offset-1">
+  <div class="row">
+        <div class="col-md-5">
+            <strong>商品信息</strong>
+        </div>
+        <div class="col-md-1">
+            <strong>单价(元)</strong>
+        </div>
+        <div class="col-md-1">
+            <strong>操作</strong>
+        </div>
+        <br>
+        <div id="marks_list">
+            <%= render 'marks/marks_list'%>
+        </div>
+   </div>
+</div>
+
+<%else%>
+ <div class="notify">没有收藏任何东西</div>
+<%end%>

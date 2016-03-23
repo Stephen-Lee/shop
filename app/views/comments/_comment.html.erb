@@ -1,0 +1,33 @@
+<div class="row comment_item">
+    <div class="col-md-2">
+        <div>
+            <%= image_tag(comment.user.check_avatar,size: "65x65",class: "img-circle")%>
+        </div>
+        <div style="margin-left: 12%;">
+            <%= comment.user.nick_name%>
+        </div>
+    </div>
+    
+    <div class="col-md-10">
+        <div class="time_style">
+            <%= time_ago_in_words(comment.created_at)%>前
+                <% if can? :manage, comment%>
+                    <div class="dropdown pull-right">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            操作
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li>
+                                <%= link_to '删除评论', comment_path(comment, product_id: @product), method: :delete, remote: true%>
+                            </li>
+                            <li>
+                                <%= link_to '封禁24小时', ban_comment_path(comment.user,product_id: @product,ban_time: 24), method: :post, remote: true%>
+                            </li>
+                        </ul>
+                    </div>
+                    <%end%>
+        </div>
+        <%= comment.content%>
+    </div>
+</div>

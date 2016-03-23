@@ -1,0 +1,36 @@
+<footer class="text-muted">
+    <div class="container">
+        <div class="pull-right">
+            <a href="#"><i class="fa fa-arrow-up"></i> 返回顶部</a>
+            <% if !user_signed_in? %>
+            <div class="footer_omniauth">
+
+            <%= link_to user_omniauth_authorize_path(:github) do %>
+                <span class="fa-stack fa-lg">
+                 <i class="fa fa-circle fa-stack-2x"></i>
+                 <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                </span>
+            <%end%>
+
+            <%= link_to user_omniauth_authorize_path(:twitter) do %>
+                <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                </span>
+            <%end%>
+
+            <%= link_to user_omniauth_authorize_path(:facebook) do %>
+                <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                </span>
+            <%end%>
+
+            </div>
+            <%end%>
+        </div>
+        <p>Stephen-Lee(github)的个人练习作品</p>
+        <p>网站源代码：<a href="https://github.com/Stephen-Lee/online_shop">点击这里</a></p>
+        <p>或者您有任何疑问或者建议可发邮件至: 471235649@qq.com</p>
+    </div>
+</footer>

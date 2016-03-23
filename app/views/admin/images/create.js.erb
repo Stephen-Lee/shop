@@ -1,0 +1,5 @@
+<% if @error %>
+ alert("出错了！可能图片数量已超过限制！")
+<%else%>
+$('#images-list').prepend('<%= j render @image %>');
+<%end%>

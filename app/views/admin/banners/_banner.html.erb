@@ -1,0 +1,9 @@
+<div class="banner_container banner_<%= banner.id%>">
+ <%= image_tag banner.picture%><%= link_to "删除",admin_banner_path(banner),method: :delete,remote: true,class: "btn btn-danger inline"%>
+ <div>
+ <%= simple_form_for [:admin,banner],remote: true do |f|%>
+   <%= f.input :url%>
+   <%= f.submit "修改",class: "btn btn-secondary"%>
+ <% end%>
+</div>
+</div>

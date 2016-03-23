@@ -1,0 +1,106 @@
+<div class="col-md-8 col-md-offset-2">
+   <div class="col-md-7">
+            <%= render 'products/preview'%>
+        <div id="mark_product">
+            <%if user_signed_in?%>
+                <%if current_user.marking?(@product)%>
+                    <%= render 'unmarked'%>
+                        <%else%>
+                            <%= render 'mark'%>
+                                <%end%>
+                                    <%end%>
+        </div>
+        <div class="pull-right">
+            <%= link_to @product.marking_users.count, '#', id: "mark_count", class: "red_color"%>人收藏</div>
+    </div>
+
+    <div class="col-md-5">
+        <div class="pre_order_form">
+        <h3><%= @product.name%></h3> 
+        价格： <div class="red_color"><strong>$<%= @product.price%></strong></div>
+        <%if @product.inventory.zero?%>
+            <h2 class="red_color">抱歉,该商品暂时缺货～</h2>
+            <%else%>
+                库存<strong><%= @product.inventory%></strong>件
+                <%= form_tag preview_order_path do%>
+                    <%= hidden_field_tag 'items[][product_id]', @product.id%>
+                    <div class="product-type">
+                    <%  @product.type_list.each do |type|%>
+                    <div class="type_selector">
+                    <%= radio_button_tag 'items[][product_type]',type %>
+                    <label for="type_#{type}">
+                        <%= type%>
+                    </label>
+                    </div>
+                    <%end%>
+                    </div>
+                    <div>数量： <input type="button" class="plus" value="+" />
+                        <%= text_field_tag 'items[][quantity]','1',size: 1%>
+                            <input type="button" class="minus" value="-" />
+                    </div>
+                    <div>
+                    <%= submit_tag '立即购买',class: "btn btn-lg btn-secondary"%>
+                    </div>
+                    <div>
+                        <%= submit_tag '加入购物车',class: "btn btn-lg btn-info "%>
+                    </div>    
+                            <%end%>
+                            <br>
+                            <%end%>
+            </div>                
+    </div>
+
+    <div class="col-md-12">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#details" aria-controls="details" role="tab" data-toggle="tab">商品详情</a></li>
+            <li role="presentation"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab"><i class="fa fa-comments"></i> <div class="inline" id = "comments_count">评价(<%= @product.comments.count %>)</div></a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="details">
+                <div class="product_introduction_container">
+                <%= sanitize @product.introduction%>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="comments">
+                <%= render 'comments/comments'%>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function() {
+    $('.product-type input').each(function() {
+    var self = $(this),
+        label = self.next(),
+        label_text = label.text();
+    label.remove();
+    self.iCheck({
+        checkboxClass: 'icheckbox_sm-blue',
+        radioClass: 'radio_sm-blue',
+        insert: label_text
+    });
+});
+
+})    
+
+$(document).ready(function() {
+$(".plus").click(function() {
+    var quantity_field = $("#items__quantity"),
+        quantity = parseInt(quantity_field.val());
+    quantity_field.val(quantity + 1);
+})
+
+$(".minus").click(function() {
+    var quantity_field = $("#items__quantity"),
+        quantity = parseInt(quantity_field.val());
+
+    if (quantity > 1) {
+        quantity_field.val(quantity - 1);
+    };
+});
+
+})
+</script>

@@ -1,0 +1,62 @@
+<div class="col-md-10 col-md-offset-1">
+<div class="col-md-3 left_bar normal_border">
+<h3 id="score">帐号当前积分<p class="red_color"><%= current_user.score%></p></h3>
+    <p class="red_color">注：抽一次奖需要消耗100积分</p>
+    <%= link_to '查看我的奖品',show_all_awards_path,class: "btn btn-lg btn-success"%>
+</div>
+<div class="col-md-8 normal_border">
+ <h1 align="center" class="red_color">参与积分抽奖赢大礼！</h1>
+    
+        <div>
+            <div align="center">
+                <%= link_to image_tag('start_award.png'),judge_awards_path,remote: true%>
+            </div>
+        </div>
+
+        <div class="normal_border">
+            <h3 align="center">奖品池</h3>
+            <table class="table">
+                <tr>
+                    <td></td>
+                    <td>剩余数量</td>
+                    <td>截止时间</td>
+                </tr>
+                <% @awards.each do |a|%>
+                    <tr>
+                        <td>
+                            <%= a.name%>
+                        </td>
+                        <td>
+                            <%= a.quantity%>
+                        </td>
+                        <td>
+                            <%= format_time(a.expire_at)%>
+                        </td>
+                    </tr>
+                    <%end%>
+            </table>
+        </div>
+
+         <div class="normal_border">
+            <h3 align="center">最近中奖用户</h3>
+            <div align="center">
+                <table class="table">
+                    <% @recent_awards.each do |a| %>
+                        <tr>
+                            <td>
+                                <%= hidden_email(a.user.email)%>
+                            </td>
+                            <td>
+                                <%= a.name%>
+                            </td>
+                        </tr>
+                     <%end%>
+                </table>
+            </div>
+        </div>
+</div>
+
+    
+
+       
+</div>

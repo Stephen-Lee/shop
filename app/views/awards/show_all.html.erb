@@ -1,0 +1,13 @@
+<h2 align="center">我的奖品</h2>
+<div class="col-md-8 col-md-offset-2">
+    <% @awards.each do |a|%>
+        <div class="normal_border">
+            <div>
+                <%= format_time(a.created_at) %>
+            </div>
+            <hr> 奖品：
+            <b><%= a.name%></b>
+            <div class="pull-right">有效期至： <b><%= format_time(a.expire_at)%></b></div>
+        </div>
+        <%end%>
+</div>

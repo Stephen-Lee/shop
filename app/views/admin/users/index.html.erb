@@ -1,0 +1,94 @@
+<div class="col-md-6">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title">用户管理</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover datatable">
+                <thead>
+                    <tr>
+                        <th><b>id</b></th>
+                        <th><b>email</b></th>
+                        <th><b>昵称</b></th>
+                        <th><b>联系电话</b></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @users.each do |user|%>
+                        <tr>
+                            <td>
+                                <%= link_to user.id, edit_admin_user_path(user)%>
+                            </td>
+                            <td>
+                                <%= link_to user.email, edit_admin_user_path(user)%>
+                            </td>
+                            <td>
+                                <%= user.nick_name%>
+                            </td>
+                            <td>
+                                <%= user.phone%>
+                            </td>
+                        </tr>
+                        <%end%>
+                </tbody>
+            </table>
+        </div>
+        <!--panel-body-->
+    </div>
+    <!--panel-->
+</div>
+<div class="col-md-6">
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <div class="panel-title">管理员管理</div>
+        </div>
+        <div class="panel-body">
+            <%if current_user.super_admin?%>
+                <div class="form-inline pull-right">
+                    <%= form_tag add_admin_users_path do %>
+                    <%= text_field_tag :email, params[:email],class: "form-control ",placeholder: "输入要添加的email帐号"%>
+                    <%= submit_tag '添加管理员', class: "btn btn-primary"%>
+                    <%end%>
+                </div>
+                <%end%>
+
+                    <table class="table table-hover datatable">
+                        <thead>
+                            <tr>
+                                <th><b>id</b></th>
+                                <th><b>email</b></th>
+                                <th><b>昵称</b></th>
+                                <th><b>联系电话</b></th>
+                                <th><b>操作</b></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% @admin_users.each do |user|%>
+                                <tr>
+                                    <td>
+                                        <%= link_to user.id, edit_admin_user_path(user)%>
+                                    </td>
+                                    <td>
+                                        <%= link_to user.email, edit_admin_user_path(user)%>
+                                    </td>
+                                    <td>
+                                        <%= user.nick_name%>
+                                    </td>
+                                    <td>
+                                        <%= user.phone%>
+                                    </td>
+                                    <td>
+                                        <% if current_user.super_admin?%>
+                                        <%= link_to '移除', remove_admin_user_path(user), method: :delete unless user == current_user%>
+                                         <%end%>
+                                    </td>
+                                </tr>
+                            <%end%>
+                        </tbody>
+                    </table>
+        </div>
+        <!--panel-body-->
+    </div>
+    <!--panel -->
+</div>
+
