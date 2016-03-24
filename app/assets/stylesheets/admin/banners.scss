@@ -1,3 +1,16 @@
 // Place all the styles related to the admin/banners controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.banner_container{
+    height: 400px;
+    margin-top: 2%;
+    background-color: #FFFFFF;
+    padding: 2%;
+}
+
+.banner_container img{
+    width: 90%;
+    height: 70%;
+}

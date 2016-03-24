@@ -1,4 +1,4 @@
-$(document).on('page:load', function() {
+$(document).ready( function() {
 
 
 $("#verify_code").hide();

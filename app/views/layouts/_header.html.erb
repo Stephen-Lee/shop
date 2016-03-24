@@ -44,11 +44,34 @@
         </li>
         <%=link_to image_tag(current_user.check_avatar, size: "50x50",class: "pull-right img-rounded"), edit_user_path(current_user)%>
             <%else%>
-                <li class="pull-right">
+                <li class="pull-right nav-link">
                     <%= link_to '注册', new_user_registration_path%>
                 </li>
-                <li class="pull-right">
-                    <%= link_to '登录', new_user_session_path%>
+                <li class="pull-right nav-link omniauth-dropdown">
+                    <%= link_to '登录', new_user_session_path,class: "hoverdown"%>
+                    <div class="omniauth-content">
+
+                         <%= link_to user_omniauth_authorize_path(:github) do %>
+                          <span class="fa-stack fa-lg">
+                             <i class="fa fa-circle fa-stack-2x"></i>
+                             <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                          </span>github
+                         <%end%>
+
+                        <%= link_to user_omniauth_authorize_path(:twitter) do %>
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>twitter
+                        <%end%>
+
+                        <%= link_to user_omniauth_authorize_path(:facebook) do %>
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>facebook
+                        <%end%>
+                    </div>
                 </li>
                 <%end%>
 </ul>

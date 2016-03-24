@@ -2,6 +2,7 @@
 <div class="col-md-3 left_bar normal_border">
 <h3 id="score">帐号当前积分<p class="red_color"><%= current_user.score%></p></h3>
     <p class="red_color">注：抽一次奖需要消耗100积分</p>
+    <p>积分获得方式：购物每1元获得1积分</p>
     <%= link_to '查看我的奖品',show_all_awards_path,class: "btn btn-lg btn-success"%>
 </div>
 <div class="col-md-8">

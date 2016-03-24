@@ -17,7 +17,7 @@
     <div class="col-md-5">
         <div class="pre_order_form">
         <h3><%= @product.name%></h3> 
-        价格： <div class="red_color"><strong>$<%= @product.price%></strong></div>
+        价格： <div class="price"><strong>¥<%= @product.price%></strong></div>
         <%if @product.inventory.zero?%>
             <h2 class="red_color">抱歉,该商品暂时缺货～</h2>
             <%else%>

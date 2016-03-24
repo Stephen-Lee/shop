@@ -10,3 +10,29 @@
 	border: 1px solid #000;
 	padding: 3px;
 }
+
+.omniauth-dropdown{
+    position: relative;
+    display: inline-block;
+}
+
+
+.omniauth-content{
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 150px;
+}
+
+.omniauth-content a{
+  display: block;
+  padding: 12px 16px;
+}
+
+.omniauth-content a:hover{
+ background-color: #f1f1f1;
+}
+
+.omniauth-dropdown:hover .omniauth-content{
+    display: block;
+}

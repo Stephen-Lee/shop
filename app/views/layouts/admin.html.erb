@@ -16,15 +16,7 @@
             <%= render 'layouts/header'%>
         </div>
         <div id="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <p class="notice">
-                        <%= notice %>
-                    </p>
-                    <p class="alert">
-                        <%= alert %>
-                    </p>
-                    <div class="col-md-3 sidebar">
+           <div class="sidebar side-style">
                         <ul class="nav nav-sidebar">
                             <li class="active">
                                 <%= link_to '<i class="fa fa-home"></i> 后台主页'.html_safe, admin_root_path,data: { no_turbolink: true }%></li>
@@ -47,7 +39,17 @@
                                 <%= link_to '<i class="fa fa-cog"></i> 抽奖管理'.html_safe, admin_awards_path%></li>
                         </ul>
                     </div>
-                    <div class="col-md-9">
+
+            <div class="container-fluid">
+                <div class="row">
+                  
+                    <div class="col-md-9 admin_content">
+                       <p class="notice">
+                        <%= notice %>
+                       </p>
+                       <p class="alert">
+                        <%= alert %>
+                       </p>
                         <%= yield %>
                     </div>
                 </div>
@@ -55,7 +57,9 @@
         </div>
         <!--content-->
         <div id="footer">
+            <div class="admin_content">
             <%= render 'layouts/footer'%>
+            </div>
         </div>
     </div>
 </body>
