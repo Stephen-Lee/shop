@@ -23,11 +23,19 @@ class OrdersController < ApplicationController
     @order = current_user.orders.build(order_params)
     if @order.save
       current_user.update_score(@order.total)
-      redirect_to orders_path
+      redirect_to payment_order_path(@order)
     else
       flash[:notice] = "提交订单失败"
       render 'preview'
     end
+  end
+
+  def payment
+    @order = Order.find(params[:id])
+  end
+
+  def paid
+    
   end
 
   private

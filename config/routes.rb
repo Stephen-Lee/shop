@@ -4,9 +4,9 @@ Rails.application.routes.draw do
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }#controllers: { registrations: "users/registrations" }
   devise_scope :user do
-   delete 'sign_out', :to => 'devise/sessions#destroy'
+    delete 'sign_out', :to => 'devise/sessions#destroy'
   end
-  
+
   root 'products#index'
 
   get '/search', to: 'products#search'
@@ -18,14 +18,14 @@ Rails.application.routes.draw do
   namespace :admin do
     root 'home#dashboard'
     get '/root_manage', to: 'home#root_manage'
-  
+
     resources :banners,only: [:create,:update,:destroy]
-    
+
     resources :categories
 
-    resources :products, except: [:show] 
+    resources :products, except: [:show]
 
-    resources :images, only: [:create] do 
+    resources :images, only: [:create] do
       delete 'del_image', on: :collection
     end
 
@@ -62,7 +62,11 @@ Rails.application.routes.draw do
   resources :items, only: [:destroy]
 
   resources :orders, only: [:index,:show,:create] do
-    post 'preview', on: :member
+    member do
+      post 'preview'
+      get 'payment'
+      post 'paid'
+    end
   end
 
   resources :marks, only: [:index, :create, :destroy] do
