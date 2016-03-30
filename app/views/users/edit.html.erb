@@ -1,8 +1,9 @@
-<div class="col-md-6 col-md-offset-4">
+<div class="col-md-6">
     <div class="normal_border">
-        <h3>个人资料</h3>
+        <h3>基本资料</h3>
         <div>昵称：<strong><%= current_user.nick_name%></strong></div>
         <div>email：<strong><%= current_user.email%></strong></div>
+        <div>账户余额：<div class="inline red_color"><%= current_user.money%></div>元</div>
         <div class="avatar pull-right">
             <%= image_tag(current_user.check_avatar,size:"70x70") %>
         </div>
@@ -15,8 +16,37 @@
                     <%= f.input :age, label: "年龄"%>
                         <%= f.submit '更改', class: "btn btn-info"%>
                             <%end%>
-                                <br>
-                                <h3>管理收货信息</h3>
+                        
+                                
+    </div>
+</div>
+
+<div class="col-md-5">
+ <div class="row">
+   <div class="normal_border">
+       <% if current_user.payment_password.nil?%>
+        <h3>设置新支付密码</h3>
+         <%= simple_form_for current_user,url: set_payment_password_user_path,method: :post do |f|%>
+            <%= f.input :payment_password_handler,required: true,label: "支付密码",hint: "六位数字"%>
+            <%= f.input :payment_password_handler_confirmation,required: true,label: "再次输入支付密码"%>
+            <%= f.submit "提交",class: "btn btn-secondary"%>
+         <%end%>
+
+       <%else%>   
+        <h3>更改支付密码</h3>
+        <%= simple_form_for current_user,url: update_payment_password_user_path do |f|%>
+          <%= f.input :old_payment_password,required: true,label: "旧支付密码"%>
+           <%= f.input :payment_password_handler,required: true,hint: ("六位数字"),label: "新支付密码"%> 
+           <%= f.input :payment_password_handler_confirmation,required: true,label: "再次输入新支付密码"%>
+           <%= f.submit "修改",class: "btn btn-secondary"%>
+        <%end%>
+       <%end%>
+   </div>
+ </div>
+
+ <div class="row">
+  <div class="normal_border">
+     <h3>管理收货信息</h3>
                                 <hr>
                                 <%= simple_form_for current_user do |f|%>
                                     <%= f.input :real_name,label: "收货人姓名"%>
@@ -32,5 +62,7 @@
                                                 </div>
                                                 <%= f.submit '修改', class: "btn btn-lg btn-primary"%>
                                                     <%end%>
-    </div>
+  </div>
+ </div>
+
 </div>

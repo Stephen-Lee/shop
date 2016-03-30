@@ -22,8 +22,8 @@ class Ability
   end
 
   def signed_in_function
-    can :update, User
-    can [:read, :preview, :create], Order
+    can [:edit,:update,:set_payment_password,:update_payment_password], User
+    can [:read, :preview,:create, :payment,:paid], Order
     can [:index, :create, :destroy, :remove], Mark
     can :destroy, Item
     can :create, Comment

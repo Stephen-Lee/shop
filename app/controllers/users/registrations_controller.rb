@@ -41,9 +41,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def verify_rucaptcha
    unless verify_rucaptcha?(resource)
       flash[:notice] = "验证码错误"
-      redirect_to new_user_registration_path       
+      redirect_to new_user_registration_path      
    end
   end
+
+  
 
   # You can put the params you want to permit in the empty array.
   # def configure_sign_up_params

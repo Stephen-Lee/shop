@@ -37,7 +37,7 @@
             </a>
             <div class="dropdown-menu">
                 <%= link_to '已买商品', orders_path,class: "dropdown-item"%>
-                    <%= link_to '完善资料', edit_user_path(current_user),class: "dropdown-item"%>
+                    <%= link_to '个人资料', edit_user_path(current_user),class: "dropdown-item"%>
                         <%= link_to '我的优惠卷', coupons_path,class: "dropdown-item"%>
                             <%= link_to '<i class="fa fa-sign-out"></i> 退出'.html_safe, destroy_user_session_path,class: "dropdown-item",method: :delete%>
             </div>

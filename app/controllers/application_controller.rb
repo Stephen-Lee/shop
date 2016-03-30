@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
   private
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) << :nick_name
+    devise_parameter_sanitizer.for(:sign_up) << [:nick_name,:payment_password_handler,:payment_password_handler_confirmation]
   end
 
   # not finish i18n

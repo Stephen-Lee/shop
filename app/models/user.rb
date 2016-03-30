@@ -1,7 +1,9 @@
 # -*- encoding : utf-8 -*-
 class User < ActiveRecord::Base
+  include BCrypt
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+  attr_accessor :old_payment_password,:payment_password_handler
 
   has_one :cart, dependent: :destroy
   has_many :orders
@@ -22,16 +24,39 @@ class User < ActiveRecord::Base
   validates :nick_name, presence: true, length: {minimum: 2, maximum: 15},
     uniqueness: {case_sensitive: false}
 
+  validates :payment_password_handler,length: {is: 6},
+    numericality: {only_integer: true},confirmation: true,:if => :payment_password_exist?
+  validates :payment_password_handler_confirmation,presence: true, :if => :payment_password_exist?
 
+  before_save :bcrypt_payment_password
+  before_create :set_test_money
   after_create :create_cart
+
+
+  def payment_password_exist?
+    !payment_password_handler.nil?
+  end
+
+  def bcrypt_payment_password
+    if self.payment_password_handler
+       self.payment_password = Password.create(self.payment_password_handler)
+    end
+  end
+
+  def set_test_money
+    money = 1000
+  end
+
   def create_cart
     Cart.create(user_id: self.id)
   end
 
-  def update_score(order_total)
-    self.update_attributes(score: self.score + order_total)
-  end
 
+  def confirm_payment_password(password)
+    Password.new(payment_password) == password
+  end
+ 
+ 
   def check_avatar
     if avatar.blank?
       "default_avatar.jpg"

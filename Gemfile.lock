@@ -346,6 +346,7 @@ PLATFORMS
 DEPENDENCIES
   acts-as-taggable-on (~> 3.4)
   ancestry
+  bcrypt
   better_errors
   bootstrap-sass (~> 3.3.6)
   bootstrap-will_paginate

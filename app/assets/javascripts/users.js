@@ -1,4 +1,4 @@
-$(document).on('page:load', function() {
+$(document).ready(function() {
 	
 _init_area();
 

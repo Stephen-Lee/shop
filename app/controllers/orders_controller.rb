@@ -1,4 +1,5 @@
 class OrdersController < ApplicationController
+
   before_action :authenticate_user!
   before_action :check_type,only: :preview
   load_and_authorize_resource except: :preview
@@ -8,7 +9,7 @@ class OrdersController < ApplicationController
   end
 
   def show
-    @order = Order.find(params[:id])
+    @order = current_user.orders.find(params[:id])
   end
 
   def preview
@@ -22,7 +23,6 @@ class OrdersController < ApplicationController
   def create
     @order = current_user.orders.build(order_params)
     if @order.save
-      current_user.update_score(@order.total)
       redirect_to payment_order_path(@order)
     else
       flash[:notice] = "提交订单失败"
@@ -31,11 +31,17 @@ class OrdersController < ApplicationController
   end
 
   def payment
-    @order = Order.find(params[:id])
+    @order = current_user.orders.find(params[:id])
   end
 
   def paid
-    
+    @order = current_user.orders.find(params[:id])
+    if current_user.confirm_payment_password(params[:payment_password]) 
+    redirect_to orders_path
+    else
+      flash[:notice] = "支付密码错误"
+      redirect_to payment_order_path(@order)
+    end
   end
 
   private
@@ -56,4 +62,5 @@ class OrdersController < ApplicationController
       end
     end
   end
+
 end

@@ -16,6 +16,7 @@ class Order < ActiveRecord::Base
 
   after_create :increment_sales_counter
   after_create :update_inventory
+  after_create :update_user_score
   after_create :delete_cart_items
 
 
@@ -72,6 +73,10 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def update_user_score
+     user = self.user
+     user.update_attributes(score: user.score + self.total) 
+  end
 
   def delete_cart_items
     cart_items = user.cart.items

@@ -2,7 +2,7 @@
 Rails.application.routes.draw do
 
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }#controllers: { registrations: "users/registrations" }
+  devise_for :users, :controllers => {:omniauth_callbacks => "users/omniauth_callbacks",registrations: "users/registrations"}
   devise_scope :user do
     delete 'sign_out', :to => 'devise/sessions#destroy'
   end
@@ -53,7 +53,10 @@ Rails.application.routes.draw do
     post 'ban', on: :member
   end
 
-  resources :users, only: [:show,:edit,:update,:destroy]
+  resources :users, only: [:show,:edit,:update,:destroy] do
+    post 'set_payment_password', on: :member
+    patch 'update_payment_password', on: :member
+  end
 
   resources :carts, only: [:show,:destroy] do
     get 'add_item', on: :collection

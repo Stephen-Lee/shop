@@ -6,3 +6,8 @@
 <div>总计：<div class="inline price"><%= @order.total%></div>元</div>
 </div>
 
+
+<%= form_tag paid_order_path do %>
+ <%= password_field_tag :payment_password%>
+ <%= submit_tag "确认"%>
+<%end%>
