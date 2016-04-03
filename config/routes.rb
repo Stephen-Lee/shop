@@ -36,6 +36,7 @@ Rails.application.routes.draw do
 
     resources :orders, only: [:index, :edit, :update, :destroy] do
       get "show_products", on: :member
+      post 'deliver', on: :member
     end
 
     resources :coupons, only: [:index,:create]
@@ -69,6 +70,7 @@ Rails.application.routes.draw do
       post 'preview'
       get 'payment'
       post 'paid'
+      patch 'confirm'
     end
   end
 

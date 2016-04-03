@@ -23,7 +23,7 @@ class Ability
 
   def signed_in_function
     can [:edit,:update,:set_payment_password,:update_payment_password], User
-    can [:read, :preview,:create, :payment,:paid], Order
+    can [:read, :preview,:create, :payment,:paid,:confirm], Order
     can [:index, :create, :destroy, :remove], Mark
     can :destroy, Item
     can :create, Comment

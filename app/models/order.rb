@@ -13,12 +13,13 @@ class Order < ActiveRecord::Base
   before_create :calculate_item_total
   before_create :calculate_order_total
   before_create :check_coupon
+  before_create :set_default_status
 
-  after_create :increment_sales_counter
-  after_create :update_inventory
-  after_create :update_user_score
-  after_create :delete_cart_items
+  after_create :handle_job
 
+  def handle_job
+    OrderHandlerJob.set(wait: 1.weeks).perform_later(self)
+  end
 
   def build_items(selected_items)
     selected_items.each do |i|
@@ -29,6 +30,24 @@ class Order < ActiveRecord::Base
     
       end
     end
+  end
+
+  def not_paid?
+    self.status == "not_paid"
+  end
+
+  def pay_by(user)
+    user.update_attributes(money: user.money - self.total)
+    self.update_attributes(status: "paid")
+
+    increment_sales_counter
+    update_inventory
+    delete_cart_items
+  end
+
+  def update_user_score
+     user = self.user
+     user.update_attributes(score: user.score + self.total) 
   end
 
   private
@@ -61,6 +80,11 @@ class Order < ActiveRecord::Base
   end
 
 
+  def set_default_status
+     self.status = "not_paid"
+  end
+
+
   def increment_sales_counter
     self.items.map { |i| i.product.update_attributes(sales: i.product.sales + i.quantity) }
   end
@@ -73,10 +97,6 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def update_user_score
-     user = self.user
-     user.update_attributes(score: user.score + self.total) 
-  end
 
   def delete_cart_items
     cart_items = user.cart.items

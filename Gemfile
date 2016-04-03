@@ -44,7 +44,6 @@ gem "carrierwave", github: "carrierwaveuploader/carrierwave", branch: "master"
 gem "fog-aws"
 
 #分页
-gem 'kaminari'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 
@@ -61,8 +60,6 @@ gem 'ancestry'
 #gem 'sunspot_rails'
 #gem 'sunspot_solr'
 
-#富文本
-#gem 'rails_kindeditor', '0.4.5'
 
 #权限
 gem 'cancancan', '~> 1.10'

@@ -8,6 +8,7 @@ FactoryGirl.define do
     address "xx street"
     phone "16060606060"
     real_name "Mike"
+    money 20000
   end
 
   factory :admin,parent: :user do

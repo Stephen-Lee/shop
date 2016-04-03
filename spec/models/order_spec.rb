@@ -36,7 +36,25 @@ RSpec.describe Order, type: :model do
 
   end
 
-  describe "after create order" do
+  describe "after create order" do  
+    it "should have status not_paid" do
+        expect(@order1.status).to eq("not_paid")
+    end
+
+    it "user should still have 20000 yuan"do
+        expect(user.money).to eq(20000)
+    end 
+  end
+
+  describe "after paid" do
+    before(:each) do
+      @order1.pay_by(user)
+    end
+  
+    it "user should have 5000 yuan" do
+      expect(user.money).to eq(5000)
+    end
+
     it "should update product inventory" do
        expect(@order1.products.first.inventory).to eq(480)
        expect(@order1.products.second.inventory).to eq(490)

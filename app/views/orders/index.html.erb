@@ -14,8 +14,10 @@
     <div class="col-md-2">
         <strong>实付款</strong>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
         <strong>交易状态</strong>
+    </div>
+    <div class="col-md-1">
     </div>
     <br>
     <% @orders.each do |order|%>
@@ -43,9 +45,33 @@
                     <%end%>
                         <div class="col-md-2">
                             <%= order.total%>元</div>
-                        <div class="col-md-3">
-                            <%= link_to '订单详情',order_path(order)%>
+                        <div class="col-md-2">
+                            <div>
+                              <% case order.status %>
+                              <% when "not_paid"%>
+                               <div>未付款</div>
+                               <%= link_to '立即付款',payment_order_path(order),class: "btn btn-sm btn-danger"%> 
+
+                               <% when "paid"%>
+                                <div>已付款</div>
+                                <div>等待发货</div>
+
+                                <% when "sent"%>
+                                <div class="order_<%= order.id%>">
+                                 <div>已发货</div>
+                                 <%= link_to '确认收货',confirm_order_path(order),method: :patch,remote: true,class: "btn btn-sm btn-primary"%>
+                                 </div>
+
+                                 <% when "confirm"%>
+                                 <div>交易完成</div>
+
+                                 <% when "closed"%>
+                                 <div>交易关闭</div>
+                              <%end%>
+                            </div>
+                            
                         </div>
+                        <div class="col-md-1"><%= link_to '订单详情',order_path(order)%></div>
             </div>
         </div>
         <%end%>

@@ -1,13 +1,17 @@
+<div class="col-md-8 col-md-offset-2">
 <div class="normal_border">
 <h2>订单详情</h2>
 <div>收货地址：<%= @order.address%></div>
 <div>联系电话：<%= @order.phone%></div>
 <div>收货人姓名：<%= @order.buyer%></div>
-<div>总计：<div class="inline price"><%= @order.total%></div>元</div>
-</div>
+<div class="inline">总计：<div class="inline price"><%= @order.total%></div>元</div>
+<div class="pull-right">帐号余额: <div class="inline price"><%= current_user.money%></div>元</div>
 
 
 <%= form_tag paid_order_path do %>
+ <h3>支付密码</h3>
  <%= password_field_tag :payment_password%>
- <%= submit_tag "确认"%>
+ <div><%= submit_tag "确认支付",class: "btn btn-secondary"%></div>
 <%end%>
+</div>
+</div>

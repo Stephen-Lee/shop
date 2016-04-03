@@ -2,6 +2,11 @@ class OrdersController < ApplicationController
 
   before_action :authenticate_user!
   before_action :check_type,only: :preview
+  before_action :insure_not_paid, only: [:payment,:paid]
+  before_action :authenticate_password, only: :paid
+  before_action :insure_enough_money, only: :paid
+
+  after_action :update_score, only: :confirm
   load_and_authorize_resource except: :preview
 
   def index
@@ -31,16 +36,18 @@ class OrdersController < ApplicationController
   end
 
   def payment
-    @order = current_user.orders.find(params[:id])
   end
 
   def paid
-    @order = current_user.orders.find(params[:id])
-    if current_user.confirm_payment_password(params[:payment_password]) 
+    @order.pay_by(current_user)
     redirect_to orders_path
-    else
-      flash[:notice] = "支付密码错误"
-      redirect_to payment_order_path(@order)
+  end
+
+  def confirm
+    @order = Order.find(params[:id])
+    @order.update_attributes(status: "confirm")
+    respond_to do |format|
+      format.js
     end
   end
 
@@ -63,4 +70,29 @@ class OrdersController < ApplicationController
     end
   end
 
+  def insure_not_paid
+    @order = current_user.orders.find(params[:id])
+    unless @order.not_paid?
+      flash[:notice] = "该订单已完成或关闭"
+      redirect_to orders_path
+    end
+  end
+  
+  def authenticate_password
+    unless current_user.confirm_payment_password(params[:payment_password])
+      flash[:alert] = "支付密码错误"
+      render 'payment'
+    end
+  end
+
+  def insure_enough_money
+    unless current_user.money >= @order.total
+      flash[:alert] = "账号余额不足！"
+      render 'payment'
+    end
+  end
+
+  def update_score
+     @order.update_user_score
+  end
 end

@@ -1,7 +1,7 @@
 <% if @error%>
  alert("抱歉,你的积分不够!")
 <%else%>
-$('#score').html("帐号当前积分：<%= current_user.score%>")
+$('#score').html("<%= current_user.score%>")
 alert("恭喜您获得了： <%= @award%>");
 <%end%>
 

@@ -1,9 +1,20 @@
 <div class="col-md-10 col-md-offset-1">
-    <div class="panel panel-danger">
+
+   <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#paid" aria-controls="paid" role="tab" data-toggle="tab">待发货</a></li>
+            <li role="presentation"><a href="#sent" aria-controls="sent" role="tab" data-toggle="tab"> 已发货</a></li>
+            <li role="presentation"><a href="#history" aria-controls="history" role="tab" data-toggle="tab">已完成交易</a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="paid">
+                
+                <div class="panel panel-danger">
         <div class="panel-heading">
-            <h3 class="panel-title">订单管理</h3>
+            <h3 class="panel-title">待发货订单</h3>
         </div>
         <div class="panel-body">
+
             <table class="table table-hover datatable">
                 <thead>
                     <tr>
@@ -18,7 +29,64 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% @orders.each do |order|%>
+                    <% @paid_orders.each do |order|%>
+                        <tr>
+                            <td>
+                                <%= link_to order.id, edit_admin_order_path(order)%>
+                            </td>
+                            <td>
+                                <%= order.buyer%>
+                            </td>
+                            <td>
+                                <%= order.phone%>
+                            </td>
+                            <td>
+                                <%= order.address%>
+                            </td>
+                            <td>
+                                <%= link_to "查看",show_products_admin_order_path(order)%>
+                            </td>
+                            <td>
+                                <%= order.total%>
+                            </td>
+                            <td>
+                                <%= order.created_at.to_s(:db)%>
+                            </td>
+                            <td>
+                                <%= link_to '发货',deliver_admin_order_path(order),method: :post,remote: true,class: "order_#{order.id}"%>
+                                <%= link_to '编辑', edit_admin_order_path(order)%>,
+                                    <%= link_to '删除', admin_order_path(order), method: :delete%>
+                            </td>
+                        </tr>
+                        <%end%>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="sent">
+                <div class="panel panel-danger">
+        <div class="panel-heading">
+            <h3 class="panel-title">已发货订单</h3>
+        </div>
+        <div class="panel-body">
+          <table class="table table-hover datatable">
+                <thead>
+                    <tr>
+                        <th><b>订单编号</b></th>
+                        <th><b>买家</b></th>
+                        <th><b>联系电话</b></th>
+                        <th><b>地址</b></th>
+                        <th><b>商品</b></th>
+                        <th><b>总价</b></th>
+                        <th><b>时间</b></th>
+                        <th><b>操作</b></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @sent_orders.each do |order|%>
                         <tr>
                             <td>
                                 <%= link_to order.id, edit_admin_order_path(order)%>
@@ -51,10 +119,77 @@
             </table>
         </div>
     </div>
-    <!--panel-->
-    <hr>
-    <h1 align="center">订单统计信息</h1>
-    <div class="normal_border">
+
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="history">
+
+              <div class="panel panel-danger">
+        <div class="panel-heading">
+            <h3 class="panel-title">历史订单</h3>
+        </div>
+        <div class="panel-body">
+          <table class="table table-hover datatable">
+                <thead>
+                    <tr>
+                        <th><b>订单编号</b></th>
+                        <th><b>买家</b></th>
+                        <th><b>联系电话</b></th>
+                        <th><b>地址</b></th>
+                        <th><b>商品</b></th>
+                        <th><b>总价</b></th>
+                        <th><b>时间</b></th>
+                        <th><b>操作</b></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @history_orders.each do |order|%>
+                        <tr>
+                            <td>
+                                <%= link_to order.id, edit_admin_order_path(order)%>
+                            </td>
+                            <td>
+                                <%= order.buyer%>
+                            </td>
+                            <td>
+                                <%= order.phone%>
+                            </td>
+                            <td>
+                                <%= order.address%>
+                            </td>
+                            <td>
+                                <%= link_to "查看",show_products_admin_order_path(order)%>
+                            </td>
+                            <td>
+                                <%= order.total%>
+                            </td>
+                            <td>
+                                <%= order.created_at.to_s(:db)%>
+                            </td>
+                            <td>
+                            
+                                    <%= link_to '删除', admin_order_path(order), method: :delete%>
+                            </td>
+                        </tr>
+                        <%end%>
+                </tbody>
+            </table>
+        </div>
+    </div>
+            </div>
+        </div>
+
+     
+
+
+
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">统计信息</h3>
+        </div>
+        <div class="panel-body">
+
+            <div class="normal_border">
         <div>今日销售额：
             <%= @today_sales%>
         </div>
@@ -68,6 +203,11 @@
             <%= @year_sales%>
         </div>
     </div>
+
+        </div>
+    </div>
+    
+
 </div>
 
 
