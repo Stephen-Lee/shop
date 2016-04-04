@@ -18,7 +18,7 @@ class ProductsController < ApplicationController
     @products = Product.where("name LIKE ?", params[:query])
   end
 
-  def high_grade_search
-
+  def auto_search
+    render json: AutoSearch.terms_for(params[:term])
   end
 end

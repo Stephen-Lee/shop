@@ -1,3 +1,4 @@
+
 <ul class="nav nav-tabs navbar-fixed-top nav-style">
     <li>
      <%= link_to (image_tag "logo.png",size: "50x35"),root_path,class: "navbar-brand"%>
@@ -8,7 +9,7 @@
 
     <li>
         <%= form_tag search_path, method: :get,class: "form-inline navbar-form" do %>
-                            <%= text_field_tag :query, params[:query], class: "form-control ", placeholder: "搜索商品名称"%>
+                            <%= text_field_tag :query, params[:query], class: "form-control auto-search", placeholder: "搜索商品名称"%>
                                 <button type="submit" class="btn  btn-secondary">
                                     <i class="fa fa-search"></i> 搜索
                                 </button>
@@ -75,3 +76,12 @@
                 </li>
                 <%end%>
 </ul>
+
+
+<script>
+$(".auto-search").autocomplete({
+    autoFocus: true,
+    source: "/auto_search"  
+});
+
+</script>

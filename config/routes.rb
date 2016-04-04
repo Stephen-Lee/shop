@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   root 'products#index'
 
   get '/search', to: 'products#search'
-  get '/high_grade_search', to: 'products#high_grade_search'
+  get '/auto_search', to: 'products#auto_search'
 
 
   mount RuCaptcha::Engine => "/rucaptcha"

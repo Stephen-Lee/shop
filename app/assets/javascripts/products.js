@@ -1,4 +1,4 @@
-$(document).on('page:load',function() {
+$(document).on('page:load',function(){
     $('.product-type input').each(function() {
     var self = $(this),
         label = self.next(),
@@ -11,9 +11,8 @@ $(document).on('page:load',function() {
     });
 });
 
-})    
 
-$(document).on('page:load',function() {
+
 $(".plus").click(function() {
     var quantity_field = $("#items__quantity"),
         quantity = parseInt(quantity_field.val());
@@ -28,5 +27,6 @@ $(".minus").click(function() {
         quantity_field.val(quantity - 1);
     };
 });
+
 
 })
