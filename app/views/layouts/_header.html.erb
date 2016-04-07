@@ -7,15 +7,7 @@
         <%= link_to '首页', root_path, 'data-no-turbolink' => true%>
     </li>
 
-    <li>
-        <%= form_tag search_path, method: :get,class: "form-inline navbar-form" do %>
-                            <%= text_field_tag :query, params[:query], class: "form-control auto-search", placeholder: "搜索商品名称"%>
-                                <button type="submit" class="btn  btn-secondary">
-                                    <i class="fa fa-search"></i> 搜索
-                                </button>
-                                <%end%>
-                           
-    </li>
+
     <% if user_signed_in?%>
         <li class="nav-link">
             <% if current_user.has_role?("admin")%>
@@ -78,10 +70,5 @@
 </ul>
 
 
-<script>
-$(".auto-search").autocomplete({
-    autoFocus: true,
-    source: "/auto_search"  
-});
 
-</script>
+ 

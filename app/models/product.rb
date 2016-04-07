@@ -12,15 +12,25 @@ class Product < ActiveRecord::Base
   mount_uploader :picture, PictureUploader
 
 
-  validates :name, presence: true, length: {maximum: 50}
+  validates :name, presence: true, length: {maximum: 50},uniqueness: {case_sensitive: false}
   validates :price, presence: true, numericality: {greater_than_or_equal_to: 0}
   validates :inventory, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
 
   before_save :handle_type_list
+  after_save :add_to_suggestions
 
+  before_update :remove_suggestions
+ 
 
   def handle_type_list
    self.type_list = type_list[0].to_s.gsub(/ /,",")
   end
+  
+  def add_to_suggestions
+     AutoSearch.add_product_term(self.id)
+  end
 
+  def remove_suggestions
+    AutoSearch.remove_product_term(self.id)
+  end
 end

@@ -1,4 +1,5 @@
 class Admin::ProductsController < Admin::BaseController
+  before_action :destroy_suggestions, only: :destroy
   def index
     @products = Product.all#.paginate(page: params[:page], per_page: 30).order("created_at desc")
   end
@@ -34,7 +35,6 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def destroy
-    @product = Product.find(params[:id])
     if @product.delete
       flash[:notice] = "删除成功"
     else
@@ -49,5 +49,9 @@ class Admin::ProductsController < Admin::BaseController
     params.require(:product).permit(:name,:price,:inventory,:picture,
                                     :introduction, :category_id,{type_list: []}) 
   end
-
+  
+  def destroy_suggestions
+    @product = Product.find(params[:id])
+    @product.remove_suggestions
+  end
 end
