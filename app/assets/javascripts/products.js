@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).on('page:load',function(){
     $('.product-type input').each(function() {
     var self = $(this),
         label = self.next(),
