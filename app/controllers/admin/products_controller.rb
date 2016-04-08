@@ -1,5 +1,5 @@
 class Admin::ProductsController < Admin::BaseController
-  before_action :destroy_suggestions, only: :destroy
+  #before_action :destroy_suggestions, only: :destroy  #not for heroku
   def index
     @products = Product.all#.paginate(page: params[:page], per_page: 30).order("created_at desc")
   end
