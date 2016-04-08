@@ -1,0 +1,1 @@
+$(document).ready(function(){_init_area();var e=document.getElementById;e("s_county").setAttribute("onchange","showArea()")});
