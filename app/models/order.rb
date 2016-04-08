@@ -18,7 +18,7 @@ class Order < ActiveRecord::Base
   after_create :handle_job
 
   def handle_job
-    OrderHandlerJob.set(wait: 1.weeks).perform_later(self)
+    OrderHandlerJob.set(wait: 20.seconds).perform_later(self)
   end
 
   def build_items(selected_items)
