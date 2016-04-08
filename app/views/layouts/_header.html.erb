@@ -7,7 +7,14 @@
         <%= link_to '首页', root_path, 'data-no-turbolink' => true%>
     </li>
 
-
+    <li>
+         <%= form_tag search_path, method: :get,class: "form-inline navbar-form" do %>
+                            <%= text_field_tag :query, params[:query], class: "form-control auto-search search-input", placeholder: "搜索商品名称"%>
+                                <button type="submit" class="btn  btn-secondary">
+                                    <i class="fa fa-search"></i> 搜索
+                                </button>
+                                <%end%>
+    </li>
     <% if user_signed_in?%>
         <li class="nav-link">
             <% if current_user.has_role?("admin")%>
@@ -70,5 +77,39 @@
 </ul>
 
 
+ <script type="text/javascript">
 
+$(".auto-search").autocomplete({
+
+    source: "/auto_search",
+    select: function(event,ui){
+     var item = JSON.parse(ui.item.value);
+      window.location = "/products/" + item.id;  
+     $(this).val(''); 
+     return false;  
+     
+    }
+    
+}).autocomplete("instance")._renderItem = function (ul, item) {
+     var item = JSON.parse(item.value);
+     var markup = [
+        
+        '<div class="col-md-4">',
+        '<img class="auto-search-image" src="' + item.picture + '" />',
+
+           '<br>',
+        '</div>',
+        
+        '<div class="col-md-8">',
+           '<strong>' + item.name + '</strong>',
+           '<br>',
+      '<span class="red_color">' + "¥" +item.price + '</span>',
+        '</div>'  
+      
+     ]
+        return $('<li>')
+            .append(markup.join(''))
+            .appendTo(ul);
+          }
+</script>
  

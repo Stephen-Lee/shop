@@ -1,4 +1,4 @@
-$(document).ready( function() {
+$(document).ready(function() {
 
 
 $("#verify_code").hide();
@@ -20,7 +20,6 @@ $("#order_total").html(order_total);
 
 
 })
-
 
 function getTimeRemaining(endtime) {
   var t = Date.parse(endtime) - Date.parse(new Date());

@@ -15,10 +15,10 @@ class Order < ActiveRecord::Base
   before_create :check_coupon
   before_create :set_default_status
 
-  after_create :handle_job
+  #after_create :handle_job  #not for heroku
 
   def handle_job
-    OrderHandlerJob.set(wait: 20.seconds).perform_later(self)
+    OrderHandlerJob.set(wait: 1.weeks).perform_later(self)
   end
 
   def build_items(selected_items)
