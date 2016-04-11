@@ -44,7 +44,7 @@ class User < ActiveRecord::Base
   end
 
   def set_test_money
-    money = 1000
+    self.money = 1000
   end
 
   def create_cart

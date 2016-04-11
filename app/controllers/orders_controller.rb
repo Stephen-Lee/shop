@@ -2,6 +2,7 @@ class OrdersController < ApplicationController
 
   before_action :authenticate_user!
   before_action :check_type,only: :preview
+  before_action :check_quantity, only: :preview
   before_action :insure_not_paid, only: [:payment,:paid]
   before_action :authenticate_password, only: :paid
   before_action :insure_enough_money, only: :paid
@@ -66,6 +67,15 @@ class OrdersController < ApplicationController
           flash[:notice] = "你未指定类型"
           redirect_to @product
         end
+      end
+    end
+  end
+
+  def check_quantity
+    params[:items].each do |item|
+      if item[:quantity].to_i <= 0
+        flash[:notice] = "数量不能少于1"
+        redirect_to(:back)
       end
     end
   end
