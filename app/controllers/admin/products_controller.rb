@@ -35,6 +35,7 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def destroy
+    @product = Product.find(params[:id])
     if @product.delete
       flash[:notice] = "删除成功"
     else
@@ -51,7 +52,6 @@ class Admin::ProductsController < Admin::BaseController
   end
   
   def destroy_suggestions
-    @product = Product.find(params[:id])
     @product.remove_suggestions
   end
 end
