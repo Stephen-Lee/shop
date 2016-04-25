@@ -13,12 +13,13 @@ RSpec.describe Order, type: :model do
   before(:each) do
     @item = user.cart.items.create(product_id: product.id)
     @order1 = Order.new(attributes_for(:order,user_id: user.id))
-    @order1.items.build(product_id: product.id,quantity: 20)
-    @order1.items.build(product_id: product_with_type.id,quantity: 10,product_type: product_with_type.type_list[0])
+    @order1.items.build(product_id: product.id,quantity: 10)
+    @order1.items.build(product_id: product_with_type.id,quantity: 5,product_type: product_with_type.type_list[0])
     @order1.save
   end
 
   describe "build order" do
+
     it "can't build when item quantity more than inventory" do
       order.items.build(product_id: product.id,quantity: 501)
       expect(order.valid?).to eq(false)
@@ -30,8 +31,8 @@ RSpec.describe Order, type: :model do
     end
     
     it "should calculate the total" do
-      expect(@order1.items[0].total).to eq(10000)
-      expect(@order1.total).to eq(15000)
+      expect(@order1.items[0].total).to eq(500)
+      expect(@order1.total).to eq(750)
     end
 
   end
@@ -41,8 +42,8 @@ RSpec.describe Order, type: :model do
         expect(@order1.status).to eq("not_paid")
     end
 
-    it "user should still have 20000 yuan"do
-        expect(user.money).to eq(20000)
+    it "user should still have 1000 yuan"do
+        expect(user.money).to eq(1000)
     end 
   end
 
@@ -51,18 +52,18 @@ RSpec.describe Order, type: :model do
       @order1.pay_by(user)
     end
   
-    it "user should have 5000 yuan" do
-      expect(user.money).to eq(5000)
+    it "user should have 250 yuan" do
+      expect(user.money).to eq(250)
     end
 
     it "should update product inventory" do
-       expect(@order1.products.first.inventory).to eq(480)
-       expect(@order1.products.second.inventory).to eq(490)
+       expect(@order1.products.first.inventory).to eq(490)
+       expect(@order1.products.second.inventory).to eq(495)
     end
 
     it "should update product sales" do
-       expect(@order1.products.first.sales).to eq(20)
-       expect(@order1.products.second.sales).to eq(10)
+       expect(@order1.products.first.sales).to eq(10)
+       expect(@order1.products.second.sales).to eq(5)
     end
 
     it "should delete cart item" do

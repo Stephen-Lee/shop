@@ -8,11 +8,14 @@ FactoryGirl.define do
     address "xx street"
     phone "16060606060"
     real_name "Mike"
-    money 20000
   end
 
   factory :admin,parent: :user do
     roles {[create(:admin_role)]}
   end
-
+  
+  factory :payment_user,parent: :user do
+    payment_password_handler 123456
+    payment_password_handler_confirmation 123456
+  end
 end

@@ -17,9 +17,9 @@ class Product < ActiveRecord::Base
   validates :inventory, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
 
   before_save :handle_type_list
-  #after_save :add_to_suggestions  #not for heroku
+  after_save :add_to_suggestions  #not for heroku
 
-  #before_update :remove_suggestions #not for heroku
+  before_update :remove_suggestions #not for heroku
  
 
   def handle_type_list

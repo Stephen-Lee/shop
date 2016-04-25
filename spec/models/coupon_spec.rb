@@ -21,7 +21,7 @@ RSpec.describe Coupon, type: :model do
 
     it "should use coupon" do
       @order1.save
-      expect(@order1.total).to eq(490)
+      expect(@order1.total).to eq(40)
     end
 
     it "should delete coupon after save order" do

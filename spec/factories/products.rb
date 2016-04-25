@@ -2,7 +2,7 @@
 FactoryGirl.define do
   factory :product do
     sequence(:name) {|n| "product#{n}"}
-    price 500
+    price 50
     inventory 500
     introduction "Text"
     sales 0
